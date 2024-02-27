@@ -1,4 +1,4 @@
-To launch the app, try double clicking Dodgegame.jar.
+To launch the app, try double clicking ArenaHacker.jar.
 
 If that doesn't work, try double clicking the launch file corresponding to your OS.
 

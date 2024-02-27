@@ -1,0 +1,54 @@
+Name:TestWorld;
+Radius:1000;
+Enemies:Standard(0.01),Bounce(0.02);
+MapPosition:320|190;
+TimeLimit:150;
+|-
+Name:TestWorld2;
+Radius:500;
+Enemies:Standard(0.01),Shield(0.003),Bounce(0.03);
+MapPosition:400|200;
+TimeLimit:150;
+|-
+Name:TestWorld3;
+Radius:350;
+Enemies:Standard(0.001),Shield(0.003),SuperShield(0.0012),CircleShoot(0.002),Big(0.0004),Bounce(0.04);
+MapPosition:200|250;
+TimeLimit:150;
+|-
+Name:TestWorld4;
+Radius:350;
+Enemies:Standard(0.001),Shield(0.0005),CircleShoot(0.005),WhipShoot(0.005),Big(0.001),Bounce(0.02);
+MapPosition:280|300;
+TimeLimit:150;
+|-
+Name:TestWorld5;
+Radius:600;
+Enemies:Standard(0.03),Shield(0.02),SuperShield(0.003),CircleShoot(0.008),WhipShoot(0.004),Big(0.003),Bounce(0.1);
+MapPosition:159|320;
+TimeLimit:150;
+|-
+Name:BulletHell Easy;
+Radius:500;
+Enemies:CircleShoot(0.004),Bounce(0.01);
+MapPosition:400|350;
+TimeLimit:150;
+|-
+Name:BulletHell Medium;
+Radius:500;
+Enemies:CircleShoot(0.008),Bounce(0.01);
+MapPosition:450|350;
+TimeLimit:150;
+|-
+Name:BulletHell Hard;
+Radius:500;
+Enemies:CircleShoot(0.015),Bounce(0.01);
+MapPosition:500|350;
+TimeLimit:150;
+|-
+Name:Giant Blob;
+Radius:600;
+Enemies:Standard(0.03),Shield(0.02),SuperShield(0.003),CircleShoot(0.008),WhipShoot(0.004),Big(0.003),Bounce(0.1);
+MapPosition:580|80;
+Boss:DataBlob;
+TimeLimit:100;

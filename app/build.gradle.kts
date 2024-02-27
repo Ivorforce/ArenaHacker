@@ -60,7 +60,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "gamePackage.Main"
+    mainClass = "game.Main"
 }
 
 val copyNeighbors by tasks.registering(Copy::class) {
@@ -87,7 +87,7 @@ tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = application.mainClass
     }
-    archiveBaseName.set("Dodgegame")
+    archiveBaseName.set("ArenaHacker")
 }
 
 // FIXME This is a workaround for a gradle kotlin bug that sometimes happens when building:

@@ -1,2 +1,2 @@
 #!/bin/bash
-/usr/bin/java -jar ./Dodgegame.jar
+/usr/bin/java -jar ./ArenaHacker.jar
