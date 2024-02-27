@@ -55,11 +55,12 @@ public class Game implements LTConsoleListener
 		igViews = new ArrayList<IngameView>();
 		igViews.add(new IngameView(0, windowSize, player));
 
-		SoundManager.getDefaultManager().addSource("Death", "Death.wav");
-		SoundManager.getDefaultManager().addSource("Earthquake", "Earthquake.wav");
-		SoundManager.getDefaultManager().addSource("Laser", "Laser.wav");
-		SoundManager.getDefaultManager().addSource("Pop", "Pop.wav");
-		SoundManager.getDefaultManager().addSource("Rain", "Rain.wav");
+		SoundManager soundManager = SoundManager.getDefaultManager();
+		soundManager.addSource("Death", "Death.wav");
+		soundManager.addSource("Earthquake", "Earthquake.wav");
+		soundManager.addSource("Laser", "Laser.wav");
+		soundManager.addSource("Pop", "Pop.wav");
+		soundManager.addSource("Rain", "Rain.wav");
 
 		newGame();
 	}

@@ -4,6 +4,8 @@ import paulscode.sound.SoundSystem;
 import paulscode.sound.SoundSystemConfig;
 import paulscode.sound.SoundSystemException;
 
+import java.net.URL;
+
 public class SoundManager
 {
 
@@ -52,7 +54,9 @@ public class SoundManager
 
 	public void addSource(String sourceName, String filePath)
 	{
-		soundSystem.newStreamingSource(false, sourceName, filePath, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
+		URL resource = getClass().getClassLoader().getResource("sounds/" + filePath);
+		assert resource != null;
+		soundSystem.newStreamingSource(false, sourceName, resource, filePath, true, 0, 0, 0, SoundSystemConfig.ATTENUATION_NONE, 0);
 	}
 
 	public void setBackgroundMusic(String fileName)

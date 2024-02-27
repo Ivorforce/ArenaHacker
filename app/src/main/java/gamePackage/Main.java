@@ -578,7 +578,6 @@ public class Main implements GuiScreenLoadingListener, GuiScreenListener, GameLi
 		}
 		else if (task.equals("LoadSounds"))
 		{
-			SoundSystemConfig.setSoundFilesPackage("resources/sounds/");
 			SoundManager.libraryClass = LibraryLWJGLOpenAL.class;
 			SoundManager.addCodec(CodecWav.class, "wav");
 			SoundManager.addCodec(CodecJOrbis.class, "ogg");

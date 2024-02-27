@@ -80,11 +80,18 @@ tasks.withType<Jar> {
     // This ensures the dependencies are loaded into the jar
     from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 
-    // This is because some dependencies are loaded more than once (??)
+    // FIXME This is a workaround for a gradle kotlin bug that sometimes happens when building.
+    //  Entry xxx is a duplicate but no duplicate handling strategy has been set.
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     manifest {
         attributes["Main-Class"] = application.mainClass
     }
     archiveBaseName.set("Dodgegame")
+}
+
+// FIXME This is a workaround for a gradle kotlin bug that sometimes happens when building:
+//  Entry xxx is a duplicate but no duplicate handling strategy has been set.
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
