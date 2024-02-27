@@ -5,6 +5,8 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.6/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+//val lwjglNatives = "natives-macos"
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -13,18 +15,48 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven { url = uri("https://nexus.velocitypowered.com/repository/maven-public/") }
 }
 
 dependencies {
-    implementation("org.lwjgl:lwjgl-glfw:3.2.3")
-    implementation("org.lwjgl:lwjgl-opengl:3.2.3")
-    implementation("org.lwjgl:lwjgl-openal:3.2.3")
+    // Some other library is already packaging lwjgl, apparently. Maybe slick?
+//    implementation("org.lwjgl:lwjgl-glfw:2.9.3")
+//    implementation("org.lwjgl:lwjgl-opengl:2.9.3")
+//    implementation("org.lwjgl:lwjgl-openal:2.9.3")
 
-    // Use JUnit test framework.
-    testImplementation(libs.junit)
+//    runtimeOnly("org.lwjgl", "lwjgl", classifier = lwjglNatives)
+//    runtimeOnly("org.lwjgl", "lwjgl-glfw", classifier = lwjglNatives)
+//    runtimeOnly("org.lwjgl", "lwjgl-openal", classifier = lwjglNatives)
+//    runtimeOnly("org.lwjgl", "lwjgl-opengl", classifier = lwjglNatives)
 
-    // This dependency is used by the application.
-    implementation(libs.guava)
+    implementation("org.slick2d:slick2d-core:1.0.2")
+
+    implementation("com.paulscode:soundsystem:201809301515")
+    implementation("com.paulscode:codecjorbis:20101023")
+    implementation("com.paulscode:codecwav:20101023")
+    implementation("com.paulscode:librarylwjglopenal:20100824")
+
+    runtimeOnly(files("/Users/lukas/dev/Dodgegame/app/src/main/resources/native"))
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs("src/main/resources")
+        }
+    }
+}
+
+tasks {
+    val nativeLibs by creating(Copy::class) {
+//        from(configurations.runtime)
+        into("${layout.buildDirectory}/libs")
+        include("*.dll", "*.so", "*.dylib")
+    }
+
+    "jar" {
+        dependsOn(nativeLibs)
+    }
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -36,5 +68,30 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "de.ivorius.App"
+    mainClass = "gamePackage.Main"
+}
+
+val copyNeighbors by tasks.registering(Copy::class) {
+    // Define the source directory to copy
+    from("src/main/neighbors") // Adjust the path accordingly
+
+    // Define the destination directory
+    into(buildDir.resolve("libs")) // Adjust the destination directory as needed
+}
+
+// Add the custom task as a dependency of the build task
+tasks.startScripts {
+    dependsOn(copyNeighbors)
+}
+
+tasks.withType<Jar> {
+    // This ensures the dependencies are loaded into the jar
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    // This is because some dependencies are loaded more than once (??)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    manifest {
+        attributes["Main-Class"] = application.mainClass
+    }
+    archiveBaseName.set("Dodgegame")
 }
