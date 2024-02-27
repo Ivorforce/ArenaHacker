@@ -65,30 +65,7 @@ public class Main implements GuiScreenLoadingListener, GuiScreenListener, GameLi
 	{
 		System.out.println("Game setting up...\n");
 
-//		// From https://stackoverflow.com/questions/30346632/java-error-no-lwjgl64-in-path
-		File JGLLib = null;
-		switch(LWJGLUtil.getPlatform())
-		{
-			case LWJGLUtil.PLATFORM_WINDOWS:
-			{
-				JGLLib = new File("src/main/resources/native/windows/");
-			}
-			break;
-
-			case LWJGLUtil.PLATFORM_LINUX:
-			{
-				JGLLib = new File("src/main/resources/native/linux/");
-			}
-			break;
-
-			case LWJGLUtil.PLATFORM_MACOSX:
-			{
-				JGLLib = new File("src/main/resources/native/macosx/");
-			}
-			break;
-		}
-
-		System.setProperty("org.lwjgl.librarypath", JGLLib.getAbsolutePath());
+		LWJGLNativesHelper.copyOutsideAndLoad();
 
 		gameRunning = true;
 
